@@ -21,24 +21,25 @@ export function App() {
     setFilter({ value });
   };
 
-const addContact = ({ name, number }) => {
-    if (
-      contacts.some(contact => {
-        return contact.name === name || contact.number === number;
-      })
-    ) {
-      return alert(`${name} is already in contacts`);
-    }
-    setContacts(prev => [...prev, { name, number, id: nanoid() }]);
-  };
 
-const  filterContact = () => {
-    if (filter.length === 0) return contacts;
-    const filttredContacts = contacts.filter(el =>
-      el.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-    );
-    return filttredContacts;
+
+const addContact = (name, number) => {
+  if (contacts.some(item => item.name.toLowerCase() === name.toLowerCase())) {
+    return alert(`${name} is already in contact`);
+  }
+  const newContact = {
+    id: nanoid(),
+    name,
+    number,
   };
+  setContacts(prevContacts => [...prevContacts, newContact]);
+};
+
+const filterContact = e => {
+  return contacts.filter(item =>
+    item.name.toLowerCase().includes(filter.toLowerCase())
+  );
+};
 const  removeContact = id => {
   setContacts(prev => prev.filter(el => el.id !== id));
   };
