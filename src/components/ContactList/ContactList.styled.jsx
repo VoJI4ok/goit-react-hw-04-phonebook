@@ -24,3 +24,11 @@ display:flex;
 align-items: center;
 justify-content: space-between;
 `
+export const List = styled.ul`
+  width: 400px;
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  padding: 0;
+`;

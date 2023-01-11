@@ -2,19 +2,22 @@ import {useState} from 'react';
 import PropTypes from 'prop-types';
 import { TheForm, Label, Input, SubmitBtn} from './ContactForm.styled';
 
-function ContactForm({ addContact }) {
+const ContactForm = ({ saveDataToState }) => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
 
+  const [number, setNumber] = useState('');
+  
   const handleSubmit = e => {
     e.preventDefault();
-
-    addContact({ name, number });
-    reset();
+    saveDataToState(name, number);
+    
+    e.target.reset();
   };
-  const inputValueForm = e => {
-    const { value } = e.target;
-    switch (e.target.name) {
+
+  const inputValueForm  = e => {
+    const { name, value } = e.target;
+
+    switch (name) {
       case 'name':
         setName(value);
         break;
@@ -22,13 +25,9 @@ function ContactForm({ addContact }) {
         setNumber(value);
         break;
       default:
-        return;
+        break;
     }
   };
-  const reset = () => {
-    setName('');
-    setNumber('');
-  }; 
 
     return (
       <TheForm onSubmit={handleSubmit}>
@@ -65,5 +64,5 @@ function ContactForm({ addContact }) {
 
 export default ContactForm;
 ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
+  saveDataToState: PropTypes.func.isRequired,
 };
